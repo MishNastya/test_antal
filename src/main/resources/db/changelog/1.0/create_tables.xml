@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet id="01" author="mishustina" >
+        <createTable tableName="DOCUMENT">
+            <column name="ID" type="NUMBER(20,0)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="NAME" type="VARCHAR2(255 CHAR)"/>
+            <column name="DATE" type="DATE"/>
+        </createTable>
+        <comment>Create table DOCUMENT</comment>
+    </changeSet>
+
+    <changeSet id="02" author="mishustina" >
+        <createTable tableName="DICTIONARY">
+            <column name="ID" type="NUMBER(20,0)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="NAME" type="VARCHAR2(255 CHAR)"/>
+        </createTable>
+        <comment>Create table DICTIONARY</comment>
+    </changeSet>
+
+    <changeSet id="03" author="mishustina" >
+        <createTable tableName="TEST">
+            <column name="ID" type="NUMBER(20,0)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="NAME" type="VARCHAR2(255 CHAR)"/>
+            <column name="SORT_ORDER" type="VARCHAR2(5 CHAR)"/>
+            <column name="DOCUMENT_ID" type="NUMBER(20,0)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DICTIONARY_ID" type="NUMBER(20,0)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="TEST"
+                                 baseColumnNames="DOCUMENT_ID"
+                                 constraintName="FK_DOCUMENT"
+                                 referencedTableName="DOCUMENT"
+                                 referencedColumnNames="ID"/>
+        <addForeignKeyConstraint baseTableName="TEST"
+                                 baseColumnNames="DICTIONARY_ID"
+                                 constraintName="FK_DICTIONARY"
+                                 referencedTableName="DICTIONARY"
+                                 referencedColumnNames="ID"/>
+
+        <comment>Create table TEST</comment>
+    </changeSet>
+
+
+</databaseChangeLog>
